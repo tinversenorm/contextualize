@@ -1,0 +1,28 @@
+{
+	"manifest_version": 2,
+
+	"name": "Contextualize",
+	"description": "This extension allows you to search highlighted text in different contexts.",
+	"version": "0.1",
+
+	"page_action": {
+		"default_icon": "plasmid.png"
+	},
+
+	"permissions": [
+		"activeTab",
+		"contextMenus",
+		"tabs"
+	],
+
+	"icons": {
+		"16": "plasmid.png",
+		"48": "plasmid.png",
+		"128": "plasmid.png"
+	},
+
+	"background" : {
+		"scripts": ["contextualize.js"],
+		"persistent": false
+	}
+}
