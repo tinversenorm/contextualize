@@ -19,11 +19,13 @@ const contextConstants = {
 	REDDIT_PROMPT: "Search Reddit",
 	GOOGLE_PROMPT: "Search Google",
 	WIKIPEDIA_PROMPT: "Search Wikipedia",
+	GOOGLE_MAPS_PROMPT: "Search Google Maps",
 	YTUBE_SEARCH_URL: "https://www.youtube.com/results?search_query=",
 	AMAZON_SEARCH_URL: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=",
 	REDDIT_SEARCH_URL: "https://www.reddit.com/search?q=",
 	GOOGLE_SEARCH_URL: "https://www.google.com/search?q=",
-	WIKIPEDIA_SEARCH_URL: "https://en.wikipedia.org/wiki/Special:Search?search="
+	WIKIPEDIA_SEARCH_URL: "https://en.wikipedia.org/wiki/Special:Search?search=",
+	GOOGLE_MAPS_URL: "https://www.google.com/maps/search/"
 };
 
 const contextIds = {
@@ -31,7 +33,8 @@ const contextIds = {
 	AMAZON_ID: "amazon" + contextConstants.SELECTION,
 	REDDIT_ID: "reddit" + contextConstants.SELECTION,
 	GOOGLE_ID: "google" + contextConstants.SELECTION,
-	WIKIPEDIA_ID: "wikipedia" + contextConstants.SELECTION
+	WIKIPEDIA_ID: "wikipedia" + contextConstants.SELECTION,
+	GOOGLE_MAPS_ID: "googlemaps" + contextConstants.SELECTION
 };
 
 // The onClicked callback function.
@@ -59,6 +62,8 @@ function searchSiteSelection(query, siteID) {
 		case contextIds.GOOGLE_ID: urlSearch = contextConstants.GOOGLE_SEARCH_URL + urlquery;
 			break;
 		case contextIds.WIKIPEDIA_ID: urlSearch = contextConstants.WIKIPEDIA_SEARCH_URL + urlquery;
+			break;
+		case contextIds.GOOGLE_MAPS_ID: urlSearch = contextConstants.GOOGLE_MAPS_URL + urlquery;
 			break;
 	}
 	if(urlSearch !== "") chrome.tabs.create({ url: urlSearch });
@@ -104,5 +109,11 @@ chrome.runtime.onInstalled.addListener(function() {
 		"title": contextConstants.WIKIPEDIA_PROMPT,
 		"contexts": [contextConstants.SELECTION],
 		"id": contextIds.WIKIPEDIA_ID
+	});
+
+	var google_maps_id = chrome.contextMenus.create({
+		"title": contextConstants.GOOGLE_MAPS_PROMPT,
+		"contexts": [contextConstants.SELECTION],
+		"id": contextIds.GOOGLE_MAPS_ID
 	});
 });
