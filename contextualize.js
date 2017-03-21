@@ -8,7 +8,6 @@ Basic feature set:
 Possible additional features:
 2. Customize search options (like decide which sources you want to be able to search from)
 	a. use a browser action
-3. Reverse search images
 
 */
 
@@ -19,11 +18,13 @@ const contextConstants = {
 	REDDIT_PROMPT: "Search Reddit",
 	GOOGLE_PROMPT: "Search Google",
 	WIKIPEDIA_PROMPT: "Search Wikipedia",
+	GITHUB_PROMPT: "Search GitHub",
 	YTUBE_SEARCH_URL: "https://www.youtube.com/results?search_query=",
 	AMAZON_SEARCH_URL: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=",
 	REDDIT_SEARCH_URL: "https://www.reddit.com/search?q=",
 	GOOGLE_SEARCH_URL: "https://www.google.com/search?q=",
-	WIKIPEDIA_SEARCH_URL: "https://en.wikipedia.org/wiki/Special:Search?search="
+	WIKIPEDIA_SEARCH_URL: "https://en.wikipedia.org/wiki/Special:Search?search=",
+	GITHUB_SEARCH_URL: "https://github.com/search?q="
 };
 
 const contextIds = {
@@ -31,7 +32,8 @@ const contextIds = {
 	AMAZON_ID: "amazon" + contextConstants.SELECTION,
 	REDDIT_ID: "reddit" + contextConstants.SELECTION,
 	GOOGLE_ID: "google" + contextConstants.SELECTION,
-	WIKIPEDIA_ID: "wikipedia" + contextConstants.SELECTION
+	WIKIPEDIA_ID: "wikipedia" + contextConstants.SELECTION,
+	GITHUB_ID: "github" + contextConstants.SELECTION
 };
 
 // The onClicked callback function.
@@ -59,6 +61,8 @@ function searchSiteSelection(query, siteID) {
 		case contextIds.GOOGLE_ID: urlSearch = contextConstants.GOOGLE_SEARCH_URL + urlquery;
 			break;
 		case contextIds.WIKIPEDIA_ID: urlSearch = contextConstants.WIKIPEDIA_SEARCH_URL + urlquery;
+			break;
+		case contextIds.GITHUB_ID: urlSearch = contextConstants.GITHUB_SEARCH_URL + urlquery;
 			break;
 	}
 	if(urlSearch !== "") chrome.tabs.create({ url: urlSearch });
@@ -105,4 +109,10 @@ chrome.runtime.onInstalled.addListener(function() {
 		"contexts": [contextConstants.SELECTION],
 		"id": contextIds.WIKIPEDIA_ID
 	});
+
+	var github_id = chrome.contextMenus.create({
+		"title": contextConstants.GITHUB_PROMPT,
+		"contexts": [contextConstants.SELECTION],
+		"id" : contextIds.GITHUB_ID
+	})
 });
