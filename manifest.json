@@ -3,7 +3,7 @@
 
 	"name": "Contextualize",
 	"description": "This extension allows you to search highlighted text in different contexts.",
-	"version": "0.1",
+	"version": "0.0.0.1",
 
 	"page_action": {
 		"default_icon": "plasmid.png"
